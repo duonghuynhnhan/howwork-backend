@@ -1,7 +1,9 @@
 const express = require('express')
 const cors = require('cors')
 
-const howworkController = require('./controllers/howwork.controller')
+const accountController = require('./controllers/account.controller')
+const userController = require('./controllers/user.controller')
+const adminController = require('./controllers/admin.controller')
 const ApiError = require('./api-error')
 
 const app = express()
@@ -14,67 +16,67 @@ app.get('/', (req, res) => {
 })
 
 // ACCOUNT
-app.route('/api/account/login').post(howworkController.login)
-app.route('/api/account/forgot-password').post(howworkController.forgotPassword)
+app.route('/api/account/login').post(accountController.login)
+app.route('/api/account/forgot-password').post(accountController.forgotPassword)
 
 // USER
 // userHome
-app.route('/api/user/home').get(howworkController.userHome)
+app.route('/api/user/home').get(userController.userHome)
 
 // userProjects
-app.route('/api/user/projects').get(howworkController.userProjects)
-app.route('/api/user/project-detail').get(howworkController.userProjectDetail)
+app.route('/api/user/projects').get(userController.userProjects)
+app.route('/api/user/project-detail').get(userController.userProjectDetail)
 
 // userTasks
-app.route('/api/user/tasks').get(howworkController.userTasks)
-app.route('/api/user/task-detail').get(howworkController.userTaskDetail)
+app.route('/api/user/tasks').get(userController.userTasks)
+app.route('/api/user/task-detail').get(userController.userTaskDetail)
 
 // userSummary
-app.route('/api/user/summary').get(howworkController.userSummary)
+app.route('/api/user/summary').get(userController.userSummary)
 
 // userInfo
-app.route('/api/user/information').get(howworkController.userInformation)
-app.route('/api/user/change-information/:id').put(howworkController.userChangeInformation)
-app.route('/api/user/change-password/:id').put(howworkController.userChangePassword)
-app.route('/api/user/change-key/:id').put(howworkController.userChangeKey)
+app.route('/api/user/information').get(userController.userInformation)
+app.route('/api/user/change-information/:id').put(userController.userChangeInformation)
+app.route('/api/user/change-password/:id').put(userController.userChangePassword)
+app.route('/api/user/change-key/:id').put(userController.userChangeKey)
 
 // userNotifications
-app.route('/api/user/notifications').get(howworkController.userNotifications)
+app.route('/api/user/notifications').get(userController.userNotifications)
 
 // ADMIN
 // adminHome
-app.route('/api/admin/home').get(howworkController.adminHome)
+app.route('/api/admin/home').get(adminController.adminHome)
 
 // adminProjects
-app.route('/api/admin/create-project').post(howworkController.adminCreateProject)
-app.route('/api/admin/projects').get(howworkController.adminProjects)
-app.route('/api/admin/project-detail').get(howworkController.adminProjectDetail)
-app.route('/api/admin/edit-project/:id').put(howworkController.adminEditProject)
-app.route('/api/admin/delete-project/:id').delete(howworkController.adminDeleteProject)
+app.route('/api/admin/create-project').post(adminController.adminCreateProject)
+app.route('/api/admin/projects').get(adminController.adminProjects)
+app.route('/api/admin/project-detail').get(adminController.adminProjectDetail)
+app.route('/api/admin/edit-project/:id').put(adminController.adminEditProject)
+app.route('/api/admin/delete-project/:id').delete(adminController.adminDeleteProject)
 
 // adminTasks
-app.route('/api/admin/create-task').post(howworkController.adminCreateTask)
-app.route('/api/admin/tasks').get(howworkController.adminTasks)
-app.route('/api/admin/task-detail').get(howworkController.adminTaskDetail)
-app.route('/api/admin/edit-task/:id').put(howworkController.adminEditTask)
-app.route('/api/admin/delete-task/:id').delete(howworkController.adminDeleteTask)
+app.route('/api/admin/create-task').post(adminController.adminCreateTask)
+app.route('/api/admin/tasks').get(adminController.adminTasks)
+app.route('/api/admin/task-detail').get(adminController.adminTaskDetail)
+app.route('/api/admin/edit-task/:id').put(adminController.adminEditTask)
+app.route('/api/admin/delete-task/:id').delete(adminController.adminDeleteTask)
 
 // adminAccounts
-app.route('/api/admin/create-user').post(howworkController.adminCreateUser)
-app.route('/api/admin/delete-user/:id').delete(howworkController.adminDeleteUser)
-app.route('/api/admin/create-admin').post(howworkController.adminCreateAdmin)
+app.route('/api/admin/create-user').post(adminController.adminCreateUser)
+app.route('/api/admin/delete-user/:id').delete(adminController.adminDeleteUser)
+app.route('/api/admin/create-admin').post(adminController.adminCreateAdmin)
 
 // adminSummary
-app.route('/api/admin/summary').get(howworkController.adminSummary)
+app.route('/api/admin/summary').get(adminController.adminSummary)
 
 // adminInfo
-app.route('/api/admin/information').get(howworkController.adminInformation)
-app.route('/api/admin/change-information/:id').put(howworkController.adminChangeInformation)
-app.route('/api/admin/change-password/:id').put(howworkController.adminChangePassword)
-app.route('/api/admin/change-key/:id').put(howworkController.adminChangeKey)
+app.route('/api/admin/information').get(adminController.adminInformation)
+app.route('/api/admin/change-information/:id').put(adminController.adminChangeInformation)
+app.route('/api/admin/change-password/:id').put(adminController.adminChangePassword)
+app.route('/api/admin/change-key/:id').put(adminController.adminChangeKey)
 
 // adminNotifications
-app.route('/api/admin/notifications').get(howworkController.adminNotifications)
+app.route('/api/admin/notifications').get(adminController.adminNotifications)
 
 app.use((req, res, next) => {
     return next(new ApiError(404, 'Resource not found'))
