@@ -1,43 +1,27 @@
-exports.userHome = (req, res) => {
+exports.home = (req, res, next) => {
     return res.send({ message: 'userHome' })
 }
 
-exports.userProjects = (req, res) => {
-    return res.send({ message: 'userProjects' })
-}
-
-exports.userProjectDetail = (req, res) => {
-    return res.send({ message: 'userProjectDetail' })
-}
-
-exports.userTasks = (req, res) => {
-    return res.send({ message: 'userTaks' })
-}
-
-exports.userTaskDetail = (req, res) => {
-    return res.send({ message: 'userTaskDetail' })
-}
-
-exports.userSummary = (req, res) => {
+exports.summary = (req, res, next) => {
     return res.send({ message: 'userSummary' })
 }
 
-exports.userInformation = (req, res) => {
+exports.information = (req, res, next) => {
     return res.send({ message: 'userInformation' })
 }
 
-exports.userChangeInformation = (req, res) => {
+exports.changeInformation = (req, res, next) => {
     return res.send({ message: 'userChangeInformation' })
 }
 
-exports.userChangePassword = (req, res) => {
-    return res.send({ message: 'userChangePassword' })
+exports.create = (req, res, next) => {
+    return res.send({ message: 'Create User' })
 }
 
-exports.userChangeKey = (req, res) => {
-    return res.send({ message: 'userChangeKey' })
+exports.delete = (req, res, next) => {
+    return res.send({ message: 'Delete User' })
 }
 
-exports.userNotifications = (req, res) => {
+exports.notifications = (req, res, next) => {
     return res.send({ message: 'userNotifications' })
 }
