@@ -1,13 +1,10 @@
 const express = require('express')
 const cors = require('cors')
+const multer = require('multer')
+const path = require('path')
 
+const personController = require('./controllers/person.controller')
 const accountController = require('./controllers/account.controller')
-
-const adminController = require('./controllers/admin.controller')
-const adminAccountController = require('./controllers/adminaccount.controller')
-
-const userController = require('./controllers/user.controller')
-const userAccountController = require('./controllers/useraccount.controller')
 
 const jobController = require('./controllers/job.controller')
 
@@ -25,97 +22,132 @@ const ApiError = require('./api-error')
 
 const app = express()
 
+const upload = multer({
+    dest: './public/'
+})
+
 app.use(cors())
+app.use('/public', express.static(path.join(__dirname + '/../public')))
 app.use(express.json())
 
 app.get('/', (req, res) => {
     res.json({ messsage: 'Welcome to howwork-backend' })
 })
 
-// ACCOUNT
+//
 app.route('/api/account/login').post(accountController.login)
+//
 app.route('/api/account/forgot-password').post(accountController.forgotPassword)
 
 // USER
-// userHome
-app.route('/api/user/home').get(userController.home)
-
 // userProjects
-app.route('/api/user/all-projects/:username').get(projectAssignedController.all)
-app.route('/api/user/detail-project/:project_id').get(projectController.detail)
+//
+app.route('/api/user/projects/:username').get(projectAssignedController.all)
+//
+app.route('/api/user/project/:project_id').get(projectController.detail)
 
 // userTasks
-app.route('/api/user/all-tasks/:username').get(taskAssignedController.all)
-app.route('/api/user/detail-task/:task_id').get(taskController.detail)
+//
+app.route('/api/user/tasks/:username').get(taskAssignedController.all)
+//
+app.route('/api/user/task/:task_id').get(taskController.detail)
 
 // userSummary
-app.route('/api/user/summary/:content').get(userController.summary)
+app.route('/api/user/summary/:content').get(personController.summary)
 
 // userInfo
-app.route('/api/user/information/:username').get(userController.information)
-app.route('/api/user/change-information/:username').put(userController.changeInformation)
-app.route('/api/user/change-password/:username').put(userAccountController.changePassword)
-app.route('/api/user/change-key/:username').put(userAccountController.changeKey)
+app.route('/api/user/information/:username')
+    .get(personController.information)
+    .put(personController.changeInformation)
+//
+app.route('/api/user/password/:username').put(accountController.changePassword)
+//
+app.route('/api/user/key/:username').put(accountController.changeKey)
 
 // userNotifications
-app.route('/api/user/notifications/:username').get(userController.notifications)
+app.route('/api/user/notifications/:username').get(personController.notifications)
 
 // ADMIN
-// adminHome
-app.route('/api/admin/home').get(adminController.home)
-
 // adminProjects
-app.route('/api/admin/create-project').post(projectController.create)
-app.route('/api/admin/all-projects').get(projectController.all)
-app.route('/api/admin/project-detail/:project_id').get(projectController.detail)
-app.route('/api/admin/edit-project/:project_id').put(projectController.edit)
-app.route('/api/admin/delete-project/:project_id').delete(projectController.delete)
+//
+app.route('/api/admin/projects')
+    .get(projectController.all)
+    .post(projectController.create)
+//
+app.route('/api/admin/project/:project_id')
+    .get(projectController.detail)
+    .put(projectController.update)
+    .delete(projectController.delete)
 
 // adminTasks
-app.route('/api/admin/create-task').post(taskController.create)
-app.route('/api/admin/all-tasks').get(taskController.all)
-app.route('/api/admin/task-detail/:task_id').get(taskController.detail)
-app.route('/api/admin/edit-task/:task_id').put(taskController.edit)
-app.route('/api/admin/delete-task/:task_id').delete(taskController.delete)
+//
+app.route('/api/admin/tasks')
+    .get(taskController.all)
+    .post(taskController.create)
+//
+app.route('/api/admin/task/:task_id')
+    .get(taskController.detail)
+    .put(taskController.update)
+    .delete(taskController.delete)
+
+app.route('/api/user/task/report/:task_id')
+    .post(taskReportController.create)
+    .get(taskReportController.detail)
+    .delete(taskReportController.delete)
+    .put(taskReportController.update)
 
 // adminAccounts
-app.route('/api/admin/create-user').post(userController.create)
-app.route('/api/admin/delete-user/:username').delete(userController.delete)
-app.route('/api/admin/create-admin').post(adminController.create)
+//
+app.route('/api/admin/users').post(personController.create)
+//
+app.route('/api/admin/user/:username').delete(accountController.delete)
+//
+app.route('/api/admin/admin').post(personController.create)
 
 // adminSummary
-app.route('/api/admin/summary/:content').get(adminController.summary)
+app.route('/api/admin/summary/:content').get(personController.summary)
 
 // adminInfo
-app.route('/api/admin/information/:username').get(adminController.information)
-app.route('/api/admin/change-information/:username').put(adminController.changeInformation)
-app.route('/api/admin/change-password/:username').put(adminAccountController.changePassword)
-app.route('/api/admin/change-key/:username').put(adminAccountController.changeKey)
+app.route('/api/admin/information/:username')
+    .get(personController.information)
+    .put(personController.changeInformation)
+//
+app.route('/api/admin/password/:username').put(accountController.changePassword)
+//
+app.route('/api/admin/key/:username').put(accountController.changeKey)
 
 // adminNotifications
-app.route('/api/admin/notifications/:username').get(adminController.notifications)
+app.route('/api/admin/notifications/:username').get(personController.notifications)
 
 // Jobs
-app.route('/api/job/all-jobs/').get(jobController.all)
-app.route('/api/job/detail-job/:job_id').get(jobController.detail)
-app.route('/api/job/create-job').post(jobController.create)
-app.route('/api/job/edit-job/:job_id').put(jobController.edit)
-app.route('/api/job/delete-job/:job_id').delete(jobController.delete)
+//
+app.route('/api/admin/jobs')
+    .get(jobController.all)
+    .post(jobController.create)
+//
+app.route('/api/admin/job/:job_id')
+    .get(jobController.detail)
+    .put(jobController.update)
+    .delete(jobController.delete)
 
 // Reports
-app.route('/api/project/report/:project_id').get(projectReportController.detail)
-app.route('/api/project/add-report').post(projectReportController.add)
-app.route('/api/project/edit-report/:project_id').put(projectReportController.edit)
-app.route('/api/project/delete-report/:project_id').delete(projectReportController.delete)
-
-app.route('/api/task/report/:task_id').get(taskReportController.detail)
-app.route('/api/task/add-report').post(taskReportController.add)
-app.route('/api/task/edit-report/:task_id').put(taskReportController.edit)
-app.route('/api/task/delete-report/:task_id').delete(taskReportController.delete)
+app.route('/api/admin/project/report/:project_id')
+    .get(projectReportController.detail)
+    .put(projectReportController.update)
+    .delete(projectReportController.delete)
+    .post(projectReportController.create)
 
 // Comments
-app.route('/api/project/comment/:project_id').get(projectCommentController.all)
-app.route('/api/task/comment/:project_id').get(taskCommentController.all)
+app.route('/api/project/comments/:project_id')
+    .get(projectCommentController.all)
+    .post(projectCommentController.create)
+    .put(projectCommentController.update)
+    .delete(projectCommentController.delete)
+app.route('/api/task/comments/:task_id')
+    .get(taskCommentController.all)
+    .post(taskCommentController.create)
+    .put(taskCommentController.update)
+    .delete(taskCommentController.delete)
 
 app.use((req, res, next) => {
     return next(new ApiError(404, 'Resource not found'))

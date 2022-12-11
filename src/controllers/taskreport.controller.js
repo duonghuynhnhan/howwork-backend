@@ -1,4 +1,4 @@
-exports.add = (req, res, next) => {
+exports.create = (req, res, next) => {
     return res.send({ message: 'Create Task Report' })
 }
 
@@ -6,7 +6,7 @@ exports.detail = (req, res, next) => {
     return res.send({ message: 'Task Report Detail'})
 }
 
-exports.edit = (req, res, next) => {
+exports.update = (req, res, next) => {
     return res.send({ message: 'Task Report Edit' })
 }
 
