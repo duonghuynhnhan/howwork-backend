@@ -1,5 +1,6 @@
-const AccountService = require('../services/account.service')     
 const crypto = require('crypto')
+
+const AccountService = require('../services/account.service')     
 const ApiError = require('../api-error')
 
 exports.login = async (req, res, next) => {
@@ -97,4 +98,4 @@ exports.changeKey = async (req, res, next) => {
             )
         )
     }
- }
+}

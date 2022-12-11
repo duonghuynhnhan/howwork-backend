@@ -34,7 +34,7 @@ CREATE TABLE accounts (
 
 INSERT INTO accounts VALUES('admin00001', SHA2('kevin', 512), SHA2('kevin', 256), NULL, '0', '093201008346');
 INSERT INTO accounts VALUES('B1910676', SHA2('kevinduong', 512), SHA2('kevinduong', 256), NULL, '1', '093201008346');
-INSERT INTO accounts VALUES('C1910676', SHA2('kevinduong', 512), SHA2('kevinduong', 256), NULL, '1', '093201008346');
+INSERT INTO accounts VALUES('C1910676', SHA2('kevinduong', 512), SHA2('kevinduong', 256), NULL, '1', '093201008347');
 
 CREATE TABLE jobs (
     id                  INT                 AUTO_INCREMENT,

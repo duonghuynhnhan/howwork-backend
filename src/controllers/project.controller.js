@@ -16,7 +16,6 @@ exports.create = async (req, res, next) => {
 
 exports.detail = async (req, res, next) => {
     try {
-        
         const projectService = new ProjectService()
         const project = await projectService.findById(req.params.project_id)
         if (!project) {
