@@ -41,6 +41,13 @@ class PersonService {
                         .first()
     }
 
+    async findAll() {
+        return await this.persons
+                        .join('accounts', 'persons.id', 'accounts.person')
+                        .where('accounts.role', 'user')
+                        .select('username', 'fullname')
+    }
+
     async findById(id) {
         return await this.persons.where('id', id).select('*').first()
     }

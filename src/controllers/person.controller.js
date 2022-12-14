@@ -61,7 +61,26 @@ exports.information = async (req, res, next) => {
         return next(
             new ApiError(
                 500,
-                `Error retrieving project with id=${req.params.username}`
+                `Error retrieving person with id=${req.params.username}`
+            )
+        )
+    }
+}
+
+exports.allInformation = async (req, res, next) => {
+    try {
+        const personService = new PersonService()
+        const person = await personService.findAll()
+        if (!person) {
+            return next(new ApiError(404, 'Person not found'))
+        }
+        return res.send(person)
+    } catch (error) {
+        console.log(error)
+        return next(
+            new ApiError(
+                500,
+                `Error retrieving`
             )
         )
     }

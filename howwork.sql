@@ -24,35 +24,21 @@ CREATE TABLE accounts (
     username             CHAR(10)            NOT NULL,
     password             VARCHAR(255)        NOT NULL,
     keypass              VARCHAR(255)        NOT NULL,
-    avatar               VARCHAR(255)        ,
-    role                 CHAR(1)             NOT NULL,
+    role                 CHAR(5)             NOT NULL,
     person               CHAR(12)            NOT NULL,
 
     FOREIGN KEY (person) REFERENCES persons(id),
     PRIMARY KEY (username)
 );
 
-INSERT INTO accounts VALUES('admin00001', SHA2('kevin', 512), SHA2('kevin', 256), NULL, '0', '093201008346');
-INSERT INTO accounts VALUES('B1910676', SHA2('kevinduong', 512), SHA2('kevinduong', 256), NULL, '1', '093201008346');
-INSERT INTO accounts VALUES('C1910676', SHA2('kevinduong', 512), SHA2('kevinduong', 256), NULL, '1', '093201008347');
-
-CREATE TABLE jobs (
-    id                  INT                 AUTO_INCREMENT,
-    name                VARCHAR(255)        NOT NULL,
-
-    PRIMARY KEY (id)
-);
-
-INSERT INTO jobs(name) VALUES ('Tuyen sinh');
-INSERT INTO jobs(name) VALUES ('Xet tot nghiep');
-INSERT INTO jobs(name) VALUES ('Chuan bi khai giang');
-INSERT INTO jobs(name) VALUES ('Chuan bi be giang');
+INSERT INTO accounts VALUES('admin00001', SHA2('kevin', 512), SHA2('kevin', 256), 'admin', '093201008346');
+INSERT INTO accounts VALUES('B1910676', SHA2('kevinduong', 512), SHA2('kevinduong', 256), 'user', '093201008346');
+INSERT INTO accounts VALUES('C1910676', SHA2('kevinduong', 512), SHA2('kevinduong', 256), 'user', '093201008347');
 
 CREATE TABLE projects (
     id                   INT                 AUTO_INCREMENT,
     name                 VARCHAR(1000)       NOT NULL,
     description          VARCHAR(1000)       NOT NULL,
-    job                  INT                 NOT NULL,
     start                VARCHAR(30)         NOT NULL,
     end                  VARCHAR(30)         NOT NULL,
     time                 INT                 NOT NULL,
@@ -61,19 +47,23 @@ CREATE TABLE projects (
     updateddate          VARCHAR(30)         ,
     leader               CHAR(10)            NOT NULL,
     completedstate       FLOAT               NOT NULL,
-    state                CHAR(10)            NOT NULL, 
     note                 VARCHAR(1000)       ,
 
-    FOREIGN KEY (job) REFERENCES jobs(id),
     FOREIGN KEY (leader) REFERENCES accounts(username),
     PRIMARY KEY (id)
 );
 
-INSERT INTO projects(name, description, job, start, end, TIME, createddate, completeddate, updateddate, leader, completedstate, state, note)
-VALUES ('Tuyen sinh 2023', 'Chuan bi chu dao cho cac em', 1, '21/11/2022 12:00:00', '21/11/2022 12:00:00', 20, '21/11/2022 12:00:00', '21/11/2022 12:00:00', NULL, 'admin00001',  0, 0, 'note');
+INSERT INTO projects(name, description, start, end, TIME, createddate, completeddate, updateddate, leader, completedstate, note)
+VALUES ('Tuyen sinh 2023', 'Chuan bi chu dao cho cac em', '21/11/2022 12:00:00', '21/11/2022 12:00:00', 20, '21/11/2022 12:00:00', '21/11/2022 12:00:00', NULL, 'admin00001',  0, 'note');
 
-INSERT INTO projects(name, description, job, start, end, TIME, createddate, completeddate, updateddate, leader, completedstate, state, note)
-VALUES ('Tuyen sinh 2024', 'Chuan bi chu dao cho cac em', 1, '21/11/2022 12:00:00', '21/11/2022 12:00:00', 20, '21/11/2022 12:00:00', '21/11/2022 12:00:00', NULL, 'admin00001',  0, 0, 'note');
+INSERT INTO projects(name, description, start, end, TIME, createddate, completeddate, updateddate, leader, completedstate, note)
+VALUES ('Tuyen sinh 2024', 'Chuan bi chu dao cho cac em', '21/11/2022 12:00:00', '21/11/2022 12:00:00', 20, '21/11/2022 12:00:00', '21/11/2022 12:00:00', NULL, 'admin00001',  0, 'note');
+
+INSERT INTO projects(name, description, start, end, TIME, createddate, completeddate, updateddate, leader, completedstate, note)
+VALUES ('Tuyen sinh 2025', 'Chuan bi chu dao cho cac em', '21/11/2022 12:00:00', '21/11/2022 12:00:00', 20, '21/11/2022 12:00:00', '21/11/2022 12:00:00', NULL, 'admin00001',  0, 'note');
+
+INSERT INTO projects(name, description, start, end, TIME, createddate, completeddate, updateddate, leader, completedstate, note)
+VALUES ('Tuyen sinh 2026', 'Chuan bi chu dao cho cac em', '21/11/2022 12:00:00', '21/11/2022 12:00:00', 20, '21/11/2022 12:00:00', '21/11/2022 12:00:00', NULL, 'admin00001',  0, 'note');
 
 CREATE TABLE tasks (
     id                   INT                 AUTO_INCREMENT,
@@ -87,44 +77,41 @@ CREATE TABLE tasks (
     completeddate        VARCHAR(30)         NOT NULL,
     updateddate          VARCHAR(30)         ,
     completedstate       FLOAT               NOT NULL,
-    state                CHAR(10)            NOT NULL,
     note                 VARCHAR(1000)       ,
 
     FOREIGN KEY (memberof) REFERENCES projects(id),
     PRIMARY KEY (id)
 );
 
-INSERT INTO tasks(name, description, memberof, start, end, TIME, createddate, completeddate, updateddate, completedstate, state, note)
-VALUES ('Tao poster', 'Can co noi dung ro rang', '1', '21/11/2022 12:00:00', '21/11/2022 12:00:00', 3, '21/11/2022 12:00:00', '21/11/2022 12:00:00', NULL, 0, 0, 'Poster');
-INSERT INTO tasks(name, description, memberof, start, end, TIME, createddate, completeddate, updateddate, completedstate, state, note)
-VALUES ('Van nghe', 'Can co noi dung ro rang', '1', '21/11/2022 12:00:00', '21/11/2022 12:00:00', 3, '21/11/2022 12:00:00', '21/11/2022 12:00:00', NULL, 0, 0, 'Van nghe');
+INSERT INTO tasks(name, description, memberof, start, end, TIME, createddate, completeddate, updateddate, completedstate, note)
+VALUES ('Tao poster', 'Can co noi dung ro rang', '1', '21/11/2022 12:00:00', '21/11/2022 12:00:00', 3, '21/11/2022 12:00:00', '21/11/2022 12:00:00', NULL, 0, 'Poster');
+INSERT INTO tasks(name, description, memberof, start, end, TIME, createddate, completeddate, updateddate, completedstate, note)
+VALUES ('Van nghe', 'Can co noi dung ro rang', '1', '21/11/2022 12:00:00', '21/11/2022 12:00:00', 3, '21/11/2022 12:00:00', '21/11/2022 12:00:00', NULL, 0, 'Van nghe');
 
 CREATE TABLE projectassigned (
-    id                   INT                 AUTO_INCREMENT,
     project              INT                 NOT NULL,
     user                 CHAR(8)             NOT NULL,
 
     FOREIGN KEY (project) REFERENCES projects(id),
     FOREIGN KEY (user) REFERENCES accounts(username),
-    PRIMARY KEY (id, project, user)
+    PRIMARY KEY (project, user)
 );
 
-INSERT INTO projectassigned(project, user) VALUES (1, 'B1910676');
-INSERT INTO projectassigned(project, user) VALUES (2, 'B1910676');
-INSERT INTO projectassigned(project, user) VALUES (1, 'C1910676');
+INSERT INTO projectassigned VALUES (1, 'B1910676');
+INSERT INTO projectassigned VALUES (2, 'B1910676');
+INSERT INTO projectassigned VALUES (1, 'C1910676');
 
 CREATE TABLE taskassigned (
-    id                   INT                 AUTO_INCREMENT,
     task                 INT                 NOT NULL,
     user                 CHAR(8)             NOT NULL,
 
     FOREIGN KEY (task) REFERENCES tasks(id),
     FOREIGN KEY (user) REFERENCES accounts(username),
-    PRIMARY KEY (id, task, user)
+    PRIMARY KEY (task, user)
 );
 
-INSERT INTO taskassigned(task, user) VALUES (1, 'B1910676');
-INSERT INTO taskassigned(task, user) VALUES (2, 'C1910676');
+INSERT INTO taskassigned VALUES (1, 'B1910676');
+INSERT INTO taskassigned VALUES (2, 'C1910676');
 
 CREATE TABLE projectreport (
     id                   INT                 AUTO_INCREMENT,
@@ -144,7 +131,7 @@ CREATE TABLE taskreport (
     file                 VARCHAR(255)        NOT NULL,
     uploadeddate         VARCHAR(30)         NOT NULL,
 
-    FOREIGN KEY (task) REFERENCES taskassigned(id),
+    FOREIGN KEY (task) REFERENCES tasks(id),
     PRIMARY KEY (id)
 );
 

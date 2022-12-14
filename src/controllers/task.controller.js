@@ -78,7 +78,7 @@ exports.all = async (req, res, next) => {
 
     try {
         const taskService = new TaskService()
-        tasks = await taskService.all()
+        tasks = await taskService.all(req.params.project_id)
     } catch(error) {
         console.log(error)
         return next(

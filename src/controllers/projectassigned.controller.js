@@ -17,6 +17,35 @@ exports.all = async (req, res, next) => {
     return res.send(projects)
 }
 
+exports.allMember = async (req, res, next) => {
+    let members = []
+
+    try {
+        const projectAssignedService = new ProjectAssignedService()
+        members = await projectAssignedService.allMember(req.params.project_id)
+    } catch(error) {
+        console.log(error)
+        return next(
+            new ApiError(500, 'An error occurred while retrieving all project assigned')
+        )
+    }
+
+    return res.send(members)
+}
+
 exports.detail = (req, res, next) => {
     return res.send({ message: 'Detail Assigned Projects' })
+}
+
+exports.create = async (req, res, next) => {
+    try {
+        const projectAssignedService = new ProjectAssignedService()
+        const assign = await projectAssignedService.create(req.body)
+        return res.send(assign)
+    } catch(error) {
+        console.log(error)
+        return next(
+            new ApiError(500, 'An error occurred while creating the assigned project')
+        )
+    }
 }

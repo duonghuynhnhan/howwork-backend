@@ -12,7 +12,6 @@ class ProjectService {
             'id',
             'name',
             'description',
-            'job',
             'start',
             'end',
             'time',
@@ -21,7 +20,6 @@ class ProjectService {
             'updateddate',
             'leader',
             'completedstate',
-            'state',
             'note',
         ]
 
@@ -35,7 +33,10 @@ class ProjectService {
     }
 
     async all() {
-        return await this.projects.select('*')
+        return await this.projects
+                        .join('accounts', 'accounts.username', 'projects.leader')
+                        .join('persons', 'accounts.person', 'persons.id')
+                        .select('projects.id','projects.name', 'projects.description', 'projects.start', 'projects.end', 'projects.time', 'projects.createddate', 'projects.completeddate', 'projects.updateddate', 'projects.leader', 'projects.completedstate', 'projects.note', 'persons.fullname')
     }
 
     async create(payload) {

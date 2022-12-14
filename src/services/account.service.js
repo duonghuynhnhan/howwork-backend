@@ -11,7 +11,6 @@ class AccountService {
             'username',
             'password',
             'keypass',
-            'avatar',
             'role',
             'person',
         ]

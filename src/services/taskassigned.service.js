@@ -26,6 +26,12 @@ class TaskAssignedService {
         return await this.taskassigneds.where('user', username).select('task')
     }
 
+    async create(payload) {
+        const data = this.#getTaskAssigned(payload)
+        await this.taskassigneds.insert(data)
+        return data
+    }
+
     // async create(payload) {
     //     const job = this.#getProjectAssigned(payload)
     //     const [id] = await this.jobs.insert(job)

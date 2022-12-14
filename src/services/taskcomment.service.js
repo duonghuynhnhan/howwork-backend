@@ -26,7 +26,12 @@ class TaskComment {
     }
 
     async all(id) {
-        return await this.taskcomments.where('task', id).select('*')
+        return await this.taskcomments
+                                .join('accounts', 'taskcomment.who', 'accounts.username')
+                                .join('persons', 'accounts.person', 'persons.id')
+                                .where('taskcomment.task', id)
+                                .select('taskcomment.id', 'taskcomment.task', 'taskcomment.comment', 'taskcomment.who', 'taskcomment.time', 'persons.fullname')
+                                .orderBy('taskcomment.id')
     }
 
     async create(payload) {

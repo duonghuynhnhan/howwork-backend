@@ -26,7 +26,12 @@ class ProjectComment {
     }
 
     async all(id) {
-        return await this.projectcomments.where('project', id).select('*')
+        return await this.projectcomments
+                                        .join('accounts', 'projectcomment.who', 'accounts.username')
+                                        .join('persons', 'accounts.person', 'persons.id')
+                                        .where('projectcomment.project', id)
+                                        .select('projectcomment.id', 'projectcomment.project', 'projectcomment.comment', 'projectcomment.who', 'projectcomment.time', 'persons.fullname')
+                                        .orderBy('projectcomment.id')
     }
 
     async create(payload) {

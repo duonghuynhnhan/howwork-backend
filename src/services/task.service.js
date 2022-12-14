@@ -20,7 +20,6 @@ class TaskService {
             'completeddate',
             'updateddate',
             'completedstate',
-            'state',
             'note',
         ]
 
@@ -33,8 +32,8 @@ class TaskService {
         return task
     }
 
-    async all() {
-        return await this.tasks.select('*')
+    async all(project_id) {
+        return await this.tasks.where('memberof', project_id).select('*')
     }
 
     async create(payload) {
@@ -44,7 +43,14 @@ class TaskService {
     }
 
     async findById(id) {
-        return await this.tasks.where('id', id).select('*').first()
+        return await this.tasks
+                            .join('taskassigned', 'taskassigned.task', 'tasks.id')
+                            .join('projects', 'tasks.memberof', 'projects.id')
+                            .join('accounts', 'taskassigned.user', 'accounts.username')
+                            .join('persons', 'accounts.person', 'persons.id')
+                            .where('tasks.id', id)
+                            .select('projects.leader', 'persons.fullname', 'accounts.username', 'tasks.id', 'tasks.name', 'tasks.description', 'tasks.memberof', 'tasks.start', 'tasks.end', 'tasks.time', 'tasks.createddate', 'tasks.completeddate', 'tasks.updateddate', 'tasks.completedstate', 'tasks.note',)
+                            .first()
     }
 
     async update(id, payload) {
