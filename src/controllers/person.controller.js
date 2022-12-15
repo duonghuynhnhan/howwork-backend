@@ -28,7 +28,6 @@ exports.create = async (req, res, next) => {
             username: req.body.username,
             password: crypto.createHash('sha512').update(req.body.username).digest('hex'),
             keypass: crypto.createHash('sha256').update(req.body.username).digest('hex'),
-            avatar: req.body.avatar,
             role: req.body.role,
             person: req.body.id,
         }

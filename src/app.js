@@ -6,8 +6,6 @@ const path = require('path')
 const personController = require('./controllers/person.controller')
 const accountController = require('./controllers/account.controller')
 
-// const jobController = require('./controllers/job.controller')
-
 const projectController = require('./controllers/project.controller')
 const projectAssignedController = require('./controllers/projectassigned.controller')
 const projectReportController = require('./controllers/projectreport.controller')

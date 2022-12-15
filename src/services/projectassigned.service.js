@@ -23,7 +23,12 @@ class ProjectAssignedService {
     }
 
     async all(username) {
-        return await this.projectassigneds.where('user', username).select('project')
+        return await this.projectassigneds
+                                    .join('projects', 'projects.id', 'projectassigned.project')
+                                    .join('accounts', 'projects.leader', 'accounts.username')
+                                    .join('persons', 'persons.id', 'accounts.person')
+                                    .where('user', username)
+                                    .select('persons.fullname', 'projects.id', 'projects.name', 'projects.description', 'projects.start', 'projects.end', 'projects.time', 'projects.createddate', 'projects.completeddate', 'projects.updateddate', 'projects.leader', 'projects.completedstate', 'projects.note',)
     }
 
     async allMember(project_id) {

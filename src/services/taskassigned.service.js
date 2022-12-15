@@ -23,7 +23,10 @@ class TaskAssignedService {
     }
 
     async all(username) {
-        return await this.taskassigneds.where('user', username).select('task')
+        return await this.taskassigneds
+                                    .join('tasks', 'tasks.id', 'taskassigned.task')
+                                    .where('user', username)
+                                    .select('tasks.id', 'tasks.name', 'tasks.description', 'tasks.start', 'tasks.end', 'tasks.time', 'tasks.createddate', 'tasks.completeddate', 'tasks.updateddate', 'tasks.memberof', 'tasks.completedstate', 'tasks.note',)
     }
 
     async create(payload) {
@@ -31,16 +34,6 @@ class TaskAssignedService {
         await this.taskassigneds.insert(data)
         return data
     }
-
-    // async create(payload) {
-    //     const job = this.#getProjectAssigned(payload)
-    //     const [id] = await this.jobs.insert(job)
-    //     return { id, ...job }
-    // }
-
-    // async findById(id) {
-    //     return await this.jobs.where('id', id).select('*').first()
-    // }
 }
 
 module.exports = TaskAssignedService
