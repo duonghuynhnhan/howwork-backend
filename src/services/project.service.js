@@ -46,7 +46,12 @@ class ProjectService {
     }
 
     async findById(id) {
-        return await this.projects.where('id', id).select('*').first()
+        return await this.projects
+                        .join('accounts', 'accounts.username', 'projects.leader')
+                        .join('persons', 'accounts.person', 'persons.id')
+                        .where('projects.id', id)
+                        .select('projects.id','projects.name', 'projects.description', 'projects.start', 'projects.end', 'projects.time', 'projects.createddate', 'projects.completeddate', 'projects.updateddate', 'projects.leader', 'projects.completedstate', 'projects.note', 'persons.fullname')
+                        .first()
     }
 
     async update(id, payload) {
