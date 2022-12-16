@@ -56,7 +56,6 @@ class TaskService {
     async update(id, payload) {
         const update = this.#getTask(payload)
         update.updateddate = moment().format('DD/MM/YYYY HH:mm:ss')
-        console.log(update)
         return await this.tasks.where('id', id).update(update)
     }
 }
