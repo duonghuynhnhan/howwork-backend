@@ -15,7 +15,7 @@ CREATE TABLE persons (
     PRIMARY KEY (id)
 );
 
-INSERT INTO persons VALUES('093201008345', 'Administrator', '22/05/1978', 'Male', 'admin@outlook.com', '0384438517', 'Dean', 'Faculty of Information Technology');
+INSERT INTO persons VALUES('093201008345', 'Administrator', '22/05/1978', 'Male', 'admin@outlook.com', '0384438517', 'Dean', 'College of Information Communication & Technology');
 
 CREATE TABLE accounts (
     username             CHAR(10)            NOT NULL,
