@@ -1,7 +1,5 @@
 DROP DATABASE IF EXISTS howwork;
-
 CREATE DATABASE howwork;
-
 USE howwork;
 
 CREATE TABLE persons (
@@ -17,7 +15,7 @@ CREATE TABLE persons (
     PRIMARY KEY (id)
 );
 
-INSERT INTO persons VALUES('093201008346', 'Duong Huynh Nhan', '26/04/2001', 'Male', 'duonghuynhnhan@outlook.com', '0359484001', 'Student', 'Faculty of Information Technology');
+INSERT INTO persons VALUES('093201008345', 'Administrator', '22/05/1978', 'Male', 'admin@outlook.com', '0384438517', 'Dean', 'Faculty of Information Technology');
 
 CREATE TABLE accounts (
     username             CHAR(10)            NOT NULL,
@@ -30,7 +28,7 @@ CREATE TABLE accounts (
     PRIMARY KEY (username)
 );
 
-INSERT INTO accounts VALUES('admin1', SHA2('admin1', 512), SHA2('admin1', 256), 'admin', '093201008346');
+INSERT INTO accounts VALUES('admin', SHA2('admin', 512), SHA2('admin', 256), 'admin', '093201008345');
 
 CREATE TABLE projects (
     id                   INT                 AUTO_INCREMENT,
