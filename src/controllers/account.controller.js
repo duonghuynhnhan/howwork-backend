@@ -4,36 +4,52 @@ const AccountService = require('../services/account.service')
 const ApiError = require('../api-error')
 
 exports.login = async (req, res, next) => {
-    const username = req.body.username
-    const password = req.body.password
+    try{
+        const username = req.body.username
+        const password = req.body.password
 
-    const accountService = new AccountService()
-    const isExisted = await accountService.findByUsername(username)
+        const accountService = new AccountService()
+        const isExisted = await accountService.findByUsername(username)
 
-    if (isExisted) {
-        if (isExisted.password === crypto.createHash('sha512').update(password).digest('hex'))
-            res.send({ message: 'Success', username, role: isExisted.role })
-        else
-            res.send({ message: 'Wrong password' })
-    } else {
-        res.send({ message: 'Username does not valid' })
+        if (isExisted) {
+            if (isExisted.password === crypto.createHash('sha512').update(password).digest('hex'))
+                res.send({ message: 'Success', username, role: isExisted.role })
+            else
+                res.send({ message: 'Wrong password' })
+        } else {
+            res.send({ message: 'Username does not valid' })
+        }
+    }
+    catch (error) {
+        console.log(error)
+        return next(
+            new ApiError(500, 'Fail Login')
+        )
     }
 }
 
 exports.forgotPassword = async (req, res, next) => {
-    const username = req.body.username
-    const keypass = req.body.keypass
+    try {
+        const username = req.body.username
+        const keypass = req.body.keypass
 
-    const accountService = new AccountService()
-    const isExisted = await accountService.findByUsername(username)
+        const accountService = new AccountService()
+        const isExisted = await accountService.findByUsername(username)
 
-    if (isExisted) {
-        if (isExisted.keypass === crypto.createHash('sha256').update(keypass).digest('hex'))
-            res.send({ message: 'Success' })
-        else
-            res.send({ message: 'Wrong key' })
-    } else {
-        res.send({ message: 'Username does not valid' })
+        if (isExisted) {
+            if (isExisted.keypass === crypto.createHash('sha256').update(keypass).digest('hex'))
+                res.send({ message: 'Success' })
+            else
+                res.send({ message: 'Wrong key' })
+        } else {
+            res.send({ message: 'Username does not valid' })
+        }
+    }
+    catch(error) {
+        console.log(error)
+        return next(
+            new ApiError(500, 'Fail Keypass')
+        )
     }
 }
 

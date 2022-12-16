@@ -15,7 +15,7 @@ CREATE TABLE persons (
     PRIMARY KEY (id)
 );
 
-INSERT INTO persons VALUES('093201008345', 'Administrator', '22/05/1978', 'Male', 'admin@outlook.com', '0384438517', 'Dean', 'College of Information Communication & Technology');
+INSERT INTO persons VALUES('admin', 'admin', '22/05/1978', 'Male', 'admin@cit.ctu.edu.vn', '0384438517', 'Dean', 'College of Information Communication & Technology');
 
 CREATE TABLE accounts (
     username             CHAR(10)            NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE accounts (
     PRIMARY KEY (username)
 );
 
-INSERT INTO accounts VALUES('admin', SHA2('admin', 512), SHA2('admin', 256), 'admin', '093201008345');
+INSERT INTO accounts VALUES('admin', SHA2('admin', 512), SHA2('admin', 256), 'admin', 'admin');
 
 CREATE TABLE projects (
     id                   INT                 AUTO_INCREMENT,
