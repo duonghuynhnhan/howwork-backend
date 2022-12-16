@@ -54,10 +54,6 @@ class ProjectService {
         update.updateddate = moment().format('DD/MM/YYYY HH:mm:ss')
         return await this.projects.where('id', id).update(update)
     }
-
-    async delete(id) {
-        return await this.projects.where('id', id).del()
-    }
 }
 
 module.exports = ProjectService

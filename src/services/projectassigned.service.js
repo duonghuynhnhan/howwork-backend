@@ -44,10 +44,6 @@ class ProjectAssignedService {
         await this.projectassigneds.insert(data)
         return data
     }
-
-    // async findById(id) {
-    //     return await this.jobs.where('id', id).select('*').first()
-    // }
 }
 
 module.exports = ProjectAssignedService

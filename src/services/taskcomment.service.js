@@ -41,12 +41,6 @@ class TaskComment {
         return { id, ...comment }
     }
 
-    async update(id, payload) {
-        const update = this.#getTaskComment(payload)
-        update.time = moment().format('DD/MM/YYYY HH:mm:ss')
-        return await this.taskcomments.where('id', id).update(update)
-    }
-
     async delete(id) {
         return await this.taskcomments.where('id', id).del()
     }

@@ -17,10 +17,6 @@ exports.all = async (req, res, next) => {
     return res.send(tasks)
 }
 
-exports.detail = (req, res, next) => {
-    return res.send({ message: 'Detail Assigned Tasks' })
-}
-
 exports.create = async (req, res, next) => {
     try {
         const taskAssignedService = new TaskAssignedService()

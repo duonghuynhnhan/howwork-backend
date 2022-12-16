@@ -33,10 +33,6 @@ exports.allMember = async (req, res, next) => {
     return res.send(members)
 }
 
-exports.detail = (req, res, next) => {
-    return res.send({ message: 'Detail Assigned Projects' })
-}
-
 exports.create = async (req, res, next) => {
     try {
         const projectAssignedService = new ProjectAssignedService()

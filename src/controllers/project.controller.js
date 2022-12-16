@@ -53,25 +53,6 @@ exports.update = async (req, res, next) => {
     }
 }
 
-exports.delete = async (req, res, next) => {
-    try {
-        const projectService = new ProjectService();
-        const deleted = await projectService.delete(req.params.project_id)
-        if (!deleted) {
-            return next(new ApiError(404, 'Project not found'))
-        }
-        return res.send({ message: 'Project was deleted successfully' })
-    } catch(error) {
-        console.log(error)
-        return next(
-            new ApiError(
-                500,
-                `Could not deleted project with id=${req.params.id}`
-            )
-        )
-    }
-}
-
 exports.all = async (req, res, next) => {
     let projects = []
 

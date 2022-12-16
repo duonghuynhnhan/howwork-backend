@@ -36,12 +36,6 @@ class ProjectReportService {
     async delete(project_id) {
         return await this.projectreports.where('project', project_id).del()
     }
-
-    // async update(id, payload) {
-    //     const update = this.#getProject(payload)
-    //     update.updateddate = moment().format('DD/MM/YYYY HH:mm:ss')
-    //     return await this.projects.where('id', id).update(update)
-    // }
 }
 
 module.exports = ProjectReportService

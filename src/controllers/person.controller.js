@@ -104,7 +104,3 @@ exports.changeInformation = async (req, res, next) => {
         )
     }
 }
-
-exports.notifications = (req, res, next) => {
-    return res.send({ message: 'adminNotifications' })
-}

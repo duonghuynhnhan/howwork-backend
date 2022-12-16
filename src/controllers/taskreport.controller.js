@@ -33,10 +33,6 @@ exports.detail = async (req, res, next) => {
     }
 }
 
-exports.update = (req, res, next) => {
-    return res.send({ message: 'task Report Edit' })
-}
-
 exports.delete = async (req, res, next) => {
     try {
         const taskReportService = new TaskReportService();

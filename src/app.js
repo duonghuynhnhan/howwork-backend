@@ -1,6 +1,5 @@
 const express = require('express')
 const cors = require('cors')
-const multer = require('multer')
 const path = require('path')
 
 const personController = require('./controllers/person.controller')
@@ -19,13 +18,7 @@ const taskCommentController = require('./controllers/taskcomment.controller')
 const ApiError = require('./api-error')
 
 const app = express()
-
-const upload = multer({
-    dest: './public/'
-})
-
 app.use(cors())
-app.use('/public', express.static(path.join(__dirname + '/../public')))
 app.use(express.json())
 
 app.get('/', (req, res) => {
@@ -51,8 +44,6 @@ app.route('/api/user/information/:username')
 app.route('/api/user/password/:username').put(accountController.changePassword)
 app.route('/api/user/key/:username').put(accountController.changeKey)
 
-app.route('/api/user/notifications/:username').get(personController.notifications)
-
 app.route('/api/project')
     .post(projectController.create)
 app.route('/api/projects')
@@ -60,7 +51,6 @@ app.route('/api/projects')
 app.route('/api/project/:project_id')
     .get(projectController.detail)
     .put(projectController.update)
-    .delete(projectController.delete)
 
 app.route('/api/task')
     .post(taskController.create)
@@ -69,10 +59,8 @@ app.route('/api/tasks/:project_id')
 app.route('/api/task/:task_id')
     .get(taskController.detail)
     .put(taskController.update)
-    .delete(taskController.delete)
 
 app.route('/api/user').post(personController.create)
-app.route('/api/user/:username').delete(accountController.delete)
 app.route('/api/admin').post(personController.create)
 
 app.route('/api/admin/summary/:content').get(personController.summary)
@@ -83,13 +71,10 @@ app.route('/api/admin/information/:username')
 app.route('/api/admin/password/:username').put(accountController.changePassword)
 app.route('/api/admin/key/:username').put(accountController.changeKey)
 
-app.route('/api/admin/notifications/:username').get(personController.notifications)
-
 app.route('/api/project/report')
     .post(projectReportController.create)
 app.route('/api/project/report/:project_id')
     .get(projectReportController.detail)
-    .put(projectReportController.update)
     .delete(projectReportController.delete)
 
 app.route('/api/task/report')
@@ -97,7 +82,6 @@ app.route('/api/task/report')
 app.route('/api/task/report/:task_id')
     .get(taskReportController.detail)
     .delete(taskReportController.delete)
-    .put(taskReportController.update)
 
 app.route('/api/project/assigned').post(projectAssignedController.create)
 app.route('/api/project/assigned/:project_id').get(projectAssignedController.allMember)
@@ -107,7 +91,6 @@ app.route('/api/project/comment')
     .post(projectCommentController.create)
 app.route('/api/project/comment/:comment_id')
     .delete(projectCommentController.delete)
-    .put(projectCommentController.update)
 app.route('/api/project/comments/:project_id')
     .get(projectCommentController.all)
 
@@ -115,7 +98,6 @@ app.route('/api/task/comment')
     .post(taskCommentController.create)
 app.route('/api/task/comment/:comment_id')
     .delete(taskCommentController.delete)
-    .put(taskCommentController.update)
 app.route('/api/task/comments/:task_id')
     .get(taskCommentController.all)
 

@@ -48,23 +48,3 @@ exports.delete = async (req, res, next) => {
         )
     }
 }
-
-exports.update = async (req, res, next) => {
-    if (Object.keys(req.body).length === 0) {
-        return next(new ApiError(400, 'Data to update can not be empty'))
-    }
-
-    try {
-        const taskCommentService = new TaskCommentService()
-        const updated = await taskCommentService.update(req.params.comment_id, req.body)
-        if (!updated) {
-            return next(new ApiError(404, 'Comment not found'))
-        }
-        return res.send({ message: 'Comment was updated successfully' })
-    } catch(error) {
-        console.log(error)
-        return next(
-            new ApiError(500, `Error updating comment with id=${req.params.comment_id}`)
-        )
-    }
-}

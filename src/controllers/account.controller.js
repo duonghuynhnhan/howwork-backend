@@ -80,22 +80,3 @@ exports.changeKey = async (req, res, next) => {
         )
     }
 }
-
- exports.delete = async (req, res, next) => {
-    try {
-        const accountService = new AccountService();
-        const deleted = await accountService.delete(req.params.username)
-        if (!deleted) {
-            return next(new ApiError(404, 'Account not found'))
-        }
-        return res.send({ message: 'Account was deleted successfully' })
-    } catch(error) {
-        console.log(error)
-        return next(
-            new ApiError(
-                500,
-                `Could not deleted account with id=${req.params.username}`
-            )
-        )
-    }
-}

@@ -38,10 +38,6 @@ class AccountService {
         const update = this.#getAccount(payload)
         return await this.accounts.where('username', username).update(update)
     }
-
-    async delete(username) {
-        return await this.accounts.where('username', username).del()
-    }
 }
 
 module.exports = AccountService

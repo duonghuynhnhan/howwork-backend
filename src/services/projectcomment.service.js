@@ -41,12 +41,6 @@ class ProjectComment {
         return { id, ...comment }
     }
 
-    async update(id, payload) {
-        const update = this.#getProjectComment(payload)
-        update.time = moment().format('DD/MM/YYYY HH:mm:ss')
-        return await this.projectcomments.where('id', id).update(update)
-    }
-
     async delete(id) {
         return await this.projectcomments.where('id', id).del()
     }

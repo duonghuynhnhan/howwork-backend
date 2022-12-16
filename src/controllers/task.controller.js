@@ -54,25 +54,6 @@ exports.update = async (req, res, next) => {
     }
 }
 
-exports.delete = async (req, res, next) => {
-    try {
-        const taskService = new TaskService();
-        const deleted = await taskService.delete(req.params.task_id)
-        if (!deleted) {
-            return next(new ApiError(404, 'Task not found'))
-        }
-        return res.send({ message: 'Task was deleted successfully' })
-    } catch(error) {
-        console.log(error)
-        return next(
-            new ApiError(
-                500,
-                `Could not deleted task with id=${req.params.id}`
-            )
-        )
-    }
-}
-
 exports.all = async (req, res, next) => {
     let tasks = []
 

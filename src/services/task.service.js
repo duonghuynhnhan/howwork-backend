@@ -59,10 +59,6 @@ class TaskService {
         console.log(update)
         return await this.tasks.where('id', id).update(update)
     }
-
-    async delete(id) {
-        return await this.tasks.where('id', id).del()
-    }
 }
 
 module.exports = TaskService
